@@ -42,6 +42,7 @@
                 android:hint="Enter first name">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtfname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"/>
@@ -52,6 +53,7 @@
                 android:hint="Enter second name">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtlname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"/>
@@ -62,6 +64,7 @@
                 android:hint="example@gmail.com">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtemail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"/>
@@ -72,6 +75,7 @@
                 android:hint="Enter password">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"/>
@@ -82,11 +86,13 @@
                 android:hint="Confirm password">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtconfirmpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btncreate"
                 android:text="Create account"
                 android:layout_marginTop="24dp"
                 android:layout_width="match_parent"
@@ -96,6 +102,7 @@
                 app:backgroundTint="#1E88E5"
                 android:textColor="#FFFFFF"/>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnbacklogin"
                 android:text="I have account login"
                 android:layout_marginTop="24dp"
                 android:layout_width="match_parent"

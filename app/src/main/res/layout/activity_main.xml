@@ -42,6 +42,7 @@
                 android:hint="example@gmail.com">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtuseremail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"/>
@@ -52,11 +53,20 @@
                 android:hint="Enter password">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtuserpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"/>
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/chremember"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remember me"
+                android:textSize="22sp"/>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnlogin"
                 android:text="Log in"
                 android:layout_marginTop="24dp"
                 android:layout_width="match_parent"
@@ -65,12 +75,19 @@
                 android:textSize="20sp"
                 app:backgroundTint="#1E88E5"
                 android:textColor="#FFFFFF"/>
-            <com.google.android.material.checkbox.MaterialCheckBox
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnforgot"
+                android:text="Forgot password"
+                android:layout_marginTop="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Remember me"
-                android:textSize="22sp"/>
+                app:cornerRadius="12dp"
+                android:textSize="20sp"
+                app:backgroundTint="#00000000"
+                android:textColor="#1E88E5"/>
+
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnbackaccount"
                 android:text="Do not have account create"
                 android:layout_marginTop="24dp"
                 android:layout_width="match_parent"
