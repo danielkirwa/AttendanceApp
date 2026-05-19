@@ -7,6 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class Register extends AppCompatActivity {
 
@@ -37,5 +43,82 @@ public class Register extends AppCompatActivity {
         });
         // end of create login
 
+
+        btncreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               //code to create account
+                // first we check fname and email not empty
+                // then we check if password match
+
+                String fname = txtfname.getText().toString().trim();
+                String lname = txtlname.getText().toString().trim();
+                String email = txtemail.getText().toString().trim();
+                String password = txtpassword.getText().toString().trim();
+                String confirmPassword = txtconfirmpassword.getText().toString().trim();
+
+                // Check empty fields
+                if (fname.isEmpty()) {
+                    txtfname.setError("Enter first name");
+                    return;
+                }
+
+                if (email.isEmpty()) {
+                    txtemail.setError("Enter email");
+                    return;
+                }
+
+                // Check password match
+                if (!password.equals(confirmPassword)) {
+                    txtconfirmpassword.setError("Passwords do not match");
+                    return;
+                }
+
+                // Create Firebase user
+                FirebaseAuth.getInstance()
+                        .createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                // Format email for Firebase key
+                                String formattedEmail = email
+                                        .replace(".", "_")
+                                        .replace("@", "_at_");
+                                // Current logged in admin/user email
+
+                                // User details
+                                HashMap<String, Object> map = new HashMap<>();
+                                map.put("firstName", fname);
+                                map.put("lastName", lname);
+                                map.put("email", email);
+                                map.put("createdOn", System.currentTimeMillis());
+                                map.put("createdBy", email);
+                                map.put("status", "inactive");
+                                map.put("role", "student");
+                                // Save to Realtime Database
+                                FirebaseDatabase.getInstance("https://attendanceapp-bb425-default-rtdb.europe-west1.firebasedatabase.app/")
+                                        .getReference("userDetails")
+                                        .child(formattedEmail)
+                                        .setValue(map)
+                                        .addOnCompleteListener(dbTask -> {
+                                            if (dbTask.isSuccessful()) {
+                                                Toast.makeText(getApplicationContext(),
+                                                        "User Created",
+                                                        Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getApplicationContext(),
+                                                        "Database Error",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        task.getException().getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+            }
+        });
+        //end of create
     }
 }

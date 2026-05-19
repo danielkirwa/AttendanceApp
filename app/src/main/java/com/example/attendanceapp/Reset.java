@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Reset extends AppCompatActivity {
     Button btnrest;
@@ -22,6 +25,45 @@ public class Reset extends AppCompatActivity {
         btnrest = findViewById(R.id.btnreset);
         txtresetemail = findViewById(R.id.txtresetemail);
         btnrestbacklogin = findViewById(R.id.btnrestbacklogin);
+ // reset password logic
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        btnrest.setOnClickListener(v -> {
+
+            String email = txtresetemail.getText().toString().trim();
+
+            // Check empty
+            if (email.isEmpty()) {
+
+                txtresetemail.setError("Enter Email");
+                return;
+            }
+
+            // Send reset email
+            mAuth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(task -> {
+
+                        if (task.isSuccessful()) {
+
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    "Reset Email Sent",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
+                        } else {
+
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    task.getException().getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                    });
+
+        });
+
+
 
         // event to open login
         btnrestbacklogin.setOnClickListener(new View.OnClickListener() {
