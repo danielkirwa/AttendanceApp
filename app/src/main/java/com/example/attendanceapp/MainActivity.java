@@ -105,26 +105,20 @@ public class MainActivity extends AppCompatActivity {
                                             // Open activity by role
                                             if (role.equals("admin")) {
                                               // admin
-                                                Toast.makeText(
-                                                        getApplicationContext(),
-                                                        "admin",
-                                                        Toast.LENGTH_SHORT
-                                                ).show();
+                                                Intent intent  = new Intent(MainActivity.this,AdminDashboard.class);
+                                                startActivity(intent);
+                                                finish();
                                             } else if (role.equals("student")) {
                                                //student
-                                                Toast.makeText(
-                                                        getApplicationContext(),
-                                                        "student",
-                                                        Toast.LENGTH_SHORT
-                                                ).show();
+                                                Intent intent  = new Intent(MainActivity.this,StudentDashboard.class);
+                                                startActivity(intent);
+                                                finish();
 
                                             } else if (role.equals("lecturer")) {
                                                 //lec
-                                                Toast.makeText(
-                                                        getApplicationContext(),
-                                                        "lec",
-                                                        Toast.LENGTH_SHORT
-                                                ).show();
+                                                Intent intent  = new Intent(MainActivity.this,LecturerDashboard.class);
+                                                startActivity(intent);
+                                                finish();
                                             } else {
                                                 Toast.makeText(
                                                         getApplicationContext(),
