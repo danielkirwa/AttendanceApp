@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+
     Button btnforgot,btnlogin,btnbackaccount;
     EditText txtuseremail,txtuserpassword;
     CheckBox chremember;
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         btnforgot = findViewById(R.id.btnforgot);
         btnlogin = findViewById(R.id.btnlogin);
