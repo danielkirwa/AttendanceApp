@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AttendanceApp"
         tools:targetApi="31">
         <activity
+            android:name=".RedFlag"
+            android:exported="false" />
+        <activity
+            android:name=".StudentCourses"
+            android:exported="false" />
+        <activity
             android:name=".AddCourse"
             android:exported="false" />
         <activity
