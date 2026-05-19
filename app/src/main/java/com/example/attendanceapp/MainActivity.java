@@ -47,19 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
                 // admin
 
-                finish();
-
             } else if (role.equals("student")) {
 
                 // student
 
-                finish();
 
             } else if (role.equals("lecturer")) {
 
                 // lec
 
-                finish();
             }
         }
 
@@ -82,14 +78,11 @@ public class MainActivity extends AppCompatActivity {
             // Login
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
-
                         if (task.isSuccessful()) {
-
                             // Format email
                             String formattedEmail = email
                                     .replace(".", "_")
                                     .replace("@", "_at_");
-
                             // Get role from Firebase
                             FirebaseDatabase.getInstance("https://attendanceapp-bb425-default-rtdb.europe-west1.firebasedatabase.app/")
                                     .getReference("userDetails")
@@ -97,39 +90,27 @@ public class MainActivity extends AppCompatActivity {
                                     .child("role")
                                     .get()
                                     .addOnCompleteListener(roleTask -> {
-
                                         if (roleTask.isSuccessful()) {
-
                                             String role = String.valueOf(
                                                     roleTask.getResult().getValue()
                                             );
-
                                             // Save Remember Me
                                             if (chremember.isChecked()) {
-
                                                 SharedPreferences.Editor editor =
                                                         prefs.edit();
-
                                                 editor.putBoolean("remember", true);
                                                 editor.putString("role", role);
-
                                                 editor.apply();
                                             }
-
                                             // Open activity by role
                                             if (role.equals("admin")) {
-
                                               // admin
                                                 Toast.makeText(
                                                         getApplicationContext(),
                                                         "admin",
                                                         Toast.LENGTH_SHORT
                                                 ).show();
-
-                                                finish();
-
                                             } else if (role.equals("student")) {
-
                                                //student
                                                 Toast.makeText(
                                                         getApplicationContext(),
@@ -137,20 +118,14 @@ public class MainActivity extends AppCompatActivity {
                                                         Toast.LENGTH_SHORT
                                                 ).show();
 
-                                                finish();
-
                                             } else if (role.equals("lecturer")) {
-
                                                 //lec
                                                 Toast.makeText(
                                                         getApplicationContext(),
                                                         "lec",
                                                         Toast.LENGTH_SHORT
                                                 ).show();
-
-                                                finish();
                                             } else {
-
                                                 Toast.makeText(
                                                         getApplicationContext(),
                                                         "Role not found",
@@ -158,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
                                                 ).show();
                                             }
                                         } else {
-
                                             Toast.makeText(
                                                     getApplicationContext(),
                                                     "Failed to get role",

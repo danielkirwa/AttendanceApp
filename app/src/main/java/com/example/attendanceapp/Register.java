@@ -84,7 +84,6 @@ public class Register extends AppCompatActivity {
                                         .replace(".", "_")
                                         .replace("@", "_at_");
                                 // Current logged in admin/user email
-
                                 // User details
                                 HashMap<String, Object> map = new HashMap<>();
                                 map.put("firstName", fname);
@@ -104,6 +103,9 @@ public class Register extends AppCompatActivity {
                                                 Toast.makeText(getApplicationContext(),
                                                         "User Created",
                                                         Toast.LENGTH_SHORT).show();
+                                                Intent intent  = new Intent(Register.this,MainActivity.class);
+                                                startActivity(intent);
+                                                finish();
                                             } else {
                                                 Toast.makeText(getApplicationContext(),
                                                         "Database Error",
