@@ -4,16 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import java.util.Calendar;
+
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LecturerDashboard extends AppCompatActivity {
     TextView edtDate;
+    Button btnLogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecturer_dashboard);
+
+        btnLogout = findViewById(R.id.btnLogout);
 
 
         // ================ date picker and to show date===========//
@@ -69,6 +78,28 @@ public class LecturerDashboard extends AppCompatActivity {
 
 
 
+        btnLogout.setOnClickListener(v -> logoutUser());
 
+    }
+
+
+    private void logoutUser() {
+
+        // Firebase logout
+        FirebaseAuth.getInstance().signOut();
+
+        // Clear Remember Me
+        SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.clear(); // removes remember + role
+        editor.apply();
+
+        // Go back to login screen
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
+        finish();
     }
 }
