@@ -46,15 +46,24 @@ public class MainActivity extends AppCompatActivity {
             if (role.equals("admin")) {
 
                 // admin
+                Intent intent  = new Intent(MainActivity.this,AdminDashboard.class);
+                startActivity(intent);
+                finish();
 
             } else if (role.equals("student")) {
 
                 // student
+                Intent intent  = new Intent(MainActivity.this,StudentDashboard.class);
+                startActivity(intent);
+                finish();
 
 
             } else if (role.equals("lecturer")) {
 
                 // lec
+                Intent intent  = new Intent(MainActivity.this,LecturerDashboard.class);
+                startActivity(intent);
+                finish();
 
             }
         }

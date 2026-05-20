@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +32,14 @@ public class Register extends AppCompatActivity {
         txtemail = findViewById(R.id.txtemail);
         txtpassword = findViewById(R.id.txtpassword);
         txtconfirmpassword = findViewById(R.id.txtconfirmpassword);
+
+        // get device id
+        String deviceId = Settings.Secure.getString(
+                getContentResolver(),
+                Settings.Secure.ANDROID_ID
+        );
+
+
 
         // event to open login
         btnbacklogin.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +102,7 @@ public class Register extends AppCompatActivity {
                                 map.put("createdBy", email);
                                 map.put("status", "inactive");
                                 map.put("role", "student");
+                                map.put("deviceId" , deviceId);
                                 // Save to Realtime Database
                                 FirebaseDatabase.getInstance("https://attendanceapp-bb425-default-rtdb.europe-west1.firebasedatabase.app/")
                                         .getReference("userDetails")
