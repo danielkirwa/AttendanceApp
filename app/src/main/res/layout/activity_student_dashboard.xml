@@ -33,7 +33,7 @@
 
                 <!-- EMAIL HEADER -->
                 <TextView
-                    android:id="@+id/txtEmail"
+                    android:id="@+id/txtdeviceid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="student@gmail.com"

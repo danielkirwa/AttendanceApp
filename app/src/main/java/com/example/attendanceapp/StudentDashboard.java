@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class StudentDashboard extends AppCompatActivity {
 
     Button btnLogout, btnMyCourses;
+    TextView txtdeviceid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,16 @@ public class StudentDashboard extends AppCompatActivity {
 
         btnLogout = findViewById(R.id.btnLogout);
         btnMyCourses = findViewById(R.id.btnMyCourses);
+        txtdeviceid = findViewById(R.id.txtdeviceid);
+
+
+        // get device id
+        String deviceId = Settings.Secure.getString(
+                getContentResolver(),
+                Settings.Secure.ANDROID_ID
+        );
+        // display id
+        txtdeviceid.setText(deviceId);
 
         // ================= MY COURSES =================
         btnMyCourses.setOnClickListener(v -> {
