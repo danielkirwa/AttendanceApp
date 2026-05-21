@@ -1,5 +1,6 @@
 package com.example.attendanceapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,15 +9,21 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class StudentDashboard extends AppCompatActivity {
 
     Button btnLogout, btnMyCourses;
-    TextView txtdeviceid,txtStatus;
+    TextView txtdeviceid,txtStatus,txtrealdeviceID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,7 @@ public class StudentDashboard extends AppCompatActivity {
         btnMyCourses = findViewById(R.id.btnMyCourses);
         txtdeviceid = findViewById(R.id.txtdeviceid);
         txtStatus = findViewById(R.id.txtStatus);
+        txtrealdeviceID = findViewById(R.id.txtrealdeviceID);
 
 
         // get device id
@@ -47,6 +55,39 @@ public class StudentDashboard extends AppCompatActivity {
         String formatedemail = loggedinuseremail.replace("." , "_")
                 .replace("@" , "_at_");
 
+         // ready form database device id
+
+// reference
+        DatabaseReference refdeviceid = FirebaseDatabase
+                .getInstance("https://attendanceapp-bb425-default-rtdb.europe-west1.firebasedatabase.app/")
+                .getReference("userDetails");
+
+// load device id
+        refdeviceid.child(formatedemail).child("deviceId")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            String deviceid = snapshot.getValue(String.class);
+                            if(deviceid == deviceId){
+                                txtrealdeviceID.setText(deviceid);
+                            }else{
+                                txtrealdeviceID.setText("Not your device");
+                            }
+
+                        } else {
+
+                            txtStatus.setText("No device id found");
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                        Toast.makeText(StudentDashboard.this,
+                                error.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 
 
