@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class StudentDashboard extends AppCompatActivity {
 
-    Button btnLogout, btnMyCourses;
+    Button btnLogout, btnMyCourses,btnMarkAttendance;
     TextView txtdeviceid,txtStatus,txtrealdeviceID;
 
     @Override
@@ -35,6 +36,7 @@ public class StudentDashboard extends AppCompatActivity {
         txtdeviceid = findViewById(R.id.txtdeviceid);
         txtStatus = findViewById(R.id.txtStatus);
         txtrealdeviceID = findViewById(R.id.txtrealdeviceID);
+        btnMarkAttendance = findViewById(R.id.btnMarkAttendance);
 
 
         // get device id
@@ -69,10 +71,11 @@ public class StudentDashboard extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             String deviceid = snapshot.getValue(String.class);
-                            if(deviceid == deviceId){
+                            if(deviceid.equals(deviceId)){
                                 txtrealdeviceID.setText(deviceid);
                             }else{
                                 txtrealdeviceID.setText("Not your device");
+                                btnMarkAttendance.setVisibility(View.INVISIBLE);
                             }
 
                         } else {
