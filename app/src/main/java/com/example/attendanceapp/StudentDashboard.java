@@ -9,12 +9,14 @@ import android.provider.Settings;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class StudentDashboard extends AppCompatActivity {
 
     Button btnLogout, btnMyCourses;
-    TextView txtdeviceid;
+    TextView txtdeviceid,txtStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class StudentDashboard extends AppCompatActivity {
         btnLogout = findViewById(R.id.btnLogout);
         btnMyCourses = findViewById(R.id.btnMyCourses);
         txtdeviceid = findViewById(R.id.txtdeviceid);
+        txtStatus = findViewById(R.id.txtStatus);
 
 
         // get device id
@@ -33,6 +36,19 @@ public class StudentDashboard extends AppCompatActivity {
         );
         // display id
         txtdeviceid.setText(deviceId);
+
+        // read device id of the logged in account from db
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null){
+            // no user
+        }
+        String loggedinuseremail = user.getEmail();
+        txtStatus.setText(loggedinuseremail);
+        String formatedemail = loggedinuseremail.replace("." , "_")
+                .replace("@" , "_at_");
+
+
+
 
         // ================= MY COURSES =================
         btnMyCourses.setOnClickListener(v -> {
